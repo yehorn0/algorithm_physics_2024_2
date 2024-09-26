@@ -14,6 +14,7 @@ Help functions with list:
 number_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5, 10]
 
 sum(number_list)
+sum(number * idx for number, idx in enumerate(number_list[0:current_idx])) [current_idx+1:]
 
 max(number_list)
 min(number_list)
@@ -21,6 +22,3 @@ min(number_list)
 
 def weights_equilibrium(weights: list[int]) -> int:
     pass
-
-
-
