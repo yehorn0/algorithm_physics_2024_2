@@ -1,81 +1,83 @@
-from typing import Self
-
+import math
 
 class Complex:
-    def __init__(self, _re: float = 0., _im: float = 0.) -> None:
-        self.__re = _re
-        self.__im = _im
+    def __init__(self, real, imag):
+        self.real = real
+        self.imag = imag
 
-    def __str__(self) -> str:
-        return f"{self.real} + {self.imaginary}*i"
+    # Додавання
+    def __add__(self, other):
+        return Complex(self.real + other.real, self.imag + other.imag)
 
-    @property
-    def real(self) -> float:
-        return self.__re
+    # Віднімання
+    def __sub__(self, other):
+        return Complex(self.real - other.real, self.imag - other.imag)
 
-    @real.setter
-    def real(self, val: float) -> None:
-        self.__re = val
+    # Множення
+    def __mul__(self, other):
+        real_part = self.real * other.real - self.imag * other.imag
+        imag_part = self.real * other.imag + self.imag * other.real
+        return Complex(real_part, imag_part)
 
-    # Same for properties for imaginary part
-    @property
-    def imaginary(self) -> float:
-        return self.__im
+    # Ділення
+    def __truediv__(self, other):
+        denominator = other.real  2 + other.imag  2
+        real_part = (self.real * other.real + self.imag * other.imag) / denominator
+        imag_part = (self.imag * other.real - self.real * other.imag) / denominator
+        return Complex(real_part, imag_part)
 
-    @imaginary.setter
-    def imaginary(self, val: float) -> None:
-        self.__im = val
+    # Модуль числа
+    def __abs__(self):
+        return math.sqrt(self.real  2 + self.imag  2)
 
-    # Dunder methods
-    def __add__(self, other: Self) -> Self: # c1 + c2
-        return Complex(self.__re + other.real, self.__im + other.imaginary)
+    # Перевірка на рівність
+    def __eq__(self, other):
+        return self.real == other.real and self.imag == other.imag
 
-    def __iadd__(self, other: Self) -> Self: # c1 += c2
-        self.__re += other.real
-        self.__im += other.imaginary
+    # Перевірка на нерівність
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
+    # Переоприділення виведення
+    def __str__(self):
+        if self.imag < 0:
+            return f"{self.real} - {-self.imag}i"
+        else:
+            return f"{self.real} + {self.imag}i"
+
+    # Інкрементні операції (за бажанням)
+    def __isub__(self, other):
+        self.real -= other.real
+        self.imag -= other.imag
         return self
 
-    def __sub__(self, other: Self) -> Self: # c1 - c2
-        ...
+    def __imul__(self, other):
+        real_part = self.real * other.real - self.imag * other.imag
+        imag_part = self.real * other.imag + self.imag * other.real
+        self.real = real_part
+        self.imag = imag_part
+        return self
 
-    def __mul__(self, other: Self) -> Self: # c1 * c2
-        ...
+    def __itruediv__(self, other):
+        denominator = other.real  2 + other.imag  2
+        real_part = (self.real * other.real + self.imag * other.imag) / denominator
+        imag_part = (self.imag * other.real - self.real * other.imag) / denominator
+        self.real = real_part
+        self.imag = imag_part
+        return self
 
-    def __truediv__(self, other: Self) -> Self:  # c1 / c2
-        ...
+# Приклад використання
+a = Complex(3, 2)
+b = Complex(1, 7)
 
-    def __abs__(self) -> Self:
-        """
-        (a + ib)(a - ib) = a^2 - (ib)^2 = a^2 - i^2*b*2 = a^2 + b^2
-        |a + ib| = sqrt(a^2 + b^2)
-        """
-        ...
+print(f"Додавання: {a} + {b} = {a + b}")
+print(f"Віднімання: {a} - {b} = {a - b}")
+print(f"Множення: {a} * {b} = {a * b}")
+print(f"Ділення: {a} / {b} = {a / b}")
+print(f"Модуль числа a: |{a}| = {abs(a)}")
+print(f"a == b: {a == b}")
+print(f"a != b: {a != b}")
 
-    def __eq__(self, other: Self) -> bool: # c1 == c2
-        """real == real and imaginary == imaginary
-        """
-        ...
-
-    def __ne__(self, other: Self) -> bool: # c1 != c2
-        """NOT EQUAL :)"""
-        ...
-
-
-if __name__ == "__main__":
-    "Re + i*Im"
-    c1 = Complex(1., 2.)
-    c2 = Complex(2., 3.)
-    c3 = c1 + c2
-    c1 += c2
-    print(c3)
-    print(c1)
-    #c1 = c1 + 5.
-    #print(c1)
-
-"""100
-K/P 10
-Ispit 40
-12 lab po 4
-Vstupnij control 2
-"""
+# Інкрементні операції
+a -= b
+print(f"a після a -= b: {a}")
