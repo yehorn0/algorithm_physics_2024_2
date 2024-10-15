@@ -1,5 +1,6 @@
 from typing import Self
 
+
 class Complex:
     def __init__(self, _re: float = 0., _im: float = 0.) -> None:
         self.__re = _re
@@ -21,8 +22,12 @@ class Complex:
     def imaginary(self) -> float:
         return self.__im
 
+    @imaginary.setter
+    def imaginary(self, val: float) -> None:
+        self.__im = val
+
     # Dunder methods
-    def __add__(self, other: Self) -> Self:
+    def __add__(self, other: Self) -> Self: # c1 + c2
         return Complex(self.__re + other.real, self.__im + other.imaginary)
 
     def __iadd__(self, other: Self) -> Self: # c1 += c2
@@ -65,8 +70,8 @@ if __name__ == "__main__":
     c1 += c2
     print(c3)
     print(c1)
-    c1 = c1 + 5.
-    print(c1)
+    #c1 = c1 + 5.
+    #print(c1)
 
 """100
 K/P 10
