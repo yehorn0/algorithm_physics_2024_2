@@ -8,5 +8,10 @@ scores = [
     ('David', 62),
     ('Eve', 91)
 ]
-
-print(process_scores(scores))
+"""
+{
+    "Eve": 91,
+    "Alice": 85,
+    "Bob": 75,
+}
+"""
