@@ -30,6 +30,7 @@ class LinkedList:
 
     def remove(self, data: int) -> None:
         error_str = f"LinkedList.remove({data}): {data} not in list"
+
         if not self.__head:
             raise ValueError(error_str)
 
@@ -51,7 +52,7 @@ class LinkedList:
     # ====================================================================================
     # ==================================== LAB 8 =========================================
     # ====================================================================================
-    def reverse(self) -> Self:
+    def reverse(self) -> "LinkedList": # Self
         ...
 
     # ====================================================================================
